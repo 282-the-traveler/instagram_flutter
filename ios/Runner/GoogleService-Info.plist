@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>711459024867-ftartab1fjg2t3tvdu96co9umga8jvt6.apps.googleusercontent.com</string>
+	<string>606517123390-tvgh8adg1kfu31unrof28mfte5971l9o.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.711459024867-ftartab1fjg2t3tvdu96co9umga8jvt6</string>
+	<string>com.googleusercontent.apps.606517123390-tvgh8adg1kfu31unrof28mfte5971l9o</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBiDx2IgTGuuxiwA_wuSEc-uMtCYUVaHCg</string>
+	<string>AIzaSyDeb5G13iGn7Nm4UBBQCBRXZ3kO4Mddh6A</string>
 	<key>GCM_SENDER_ID</key>
-	<string>711459024867</string>
+	<string>606517123390</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.instagramFlutter</string>
 	<key>PROJECT_ID</key>
-	<string>instagram-flutter-d86de</string>
+	<string>instagram-flutter-55f9b</string>
 	<key>STORAGE_BUCKET</key>
-	<string>instagram-flutter-d86de.appspot.com</string>
+	<string>instagram-flutter-55f9b.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:711459024867:ios:2c7af978c5560b618a7ad6</string>
+	<string>1:606517123390:ios:eeb598ad519b74950db46f</string>
 </dict>
 </plist>
