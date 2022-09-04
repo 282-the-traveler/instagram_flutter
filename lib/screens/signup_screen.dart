@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_flutter/resources/auth_methods.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
 
@@ -46,7 +47,21 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 64,
               ),
               // circular widget to accept and show our selected file
-
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 64,
+                  //   backgroundImage: NetworkImage(
+                  //       ''),
+                  ),
+                  Positioned(
+                      bottom: 0,
+                      left: 80,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.add_a_photo)))
+                ],
+              ),
               // text field input for username
               TextFieldInput(
                 textEditingController: _usernameController,
@@ -82,8 +97,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 24,
               ),
               InkWell(
+                onTap: () async {
+                await AuthMethods().signUpUser(
+                  email: _emailController.text,
+                  password: _passwordController.text,
+                  username: _usernameController.text,
+                  bio: _bioController.text,
+                  // file: file,
+                );
+                },
                 child: Container(
-                  child: const Text('Log in'),
+                  child: const Text('Sign Up'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(
@@ -115,7 +139,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: () {},
                     child: Container(
                       child: Text(
                         "SIGN UP.",
