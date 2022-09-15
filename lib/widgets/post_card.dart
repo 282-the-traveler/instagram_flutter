@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_flutter/models/user.dart';
 import 'package:instagram_flutter/providers/user_provider.dart';
+import 'package:instagram_flutter/resources/firestore_methods.dart';
+import 'package:instagram_flutter/resources/firestore_methods.dart';
+import 'package:instagram_flutter/screens/comments_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +13,8 @@ class PostCard extends StatelessWidget {
   final snap;
   bool isLikeAnimating = false;
 
-  PostCard({Key? key, required this.snap, required this.isLikeAnimating}) : super(key: key);
+  PostCard({Key? key, required this.snap, required this.isLikeAnimating})
+      : super(key: key);
 
   Future<void> _dialogBuilder(BuildContext context) {
     return showDialog<void>(
@@ -84,6 +88,8 @@ class PostCard extends StatelessWidget {
           ),
           GestureDetector(
             onDoubleTap: () {
+              FirestoreMethods()
+                  .likePost(snap['postId'], user.uid, snap['likes']);
               setState() {
                 isLikeAnimating = true;
               }
@@ -101,14 +107,14 @@ class PostCard extends StatelessWidget {
                 ),
                 AnimatedOpacity(
                   duration: const Duration(
-                    milliseconds: 200,
+                    milliseconds: 400,
                   ),
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     child: const Icon(
                       Icons.favorite,
                       size: 120,
-                      color: Colors.white,
+                      color: Colors.orange,
                     ),
                     isAnimating: isLikeAnimating,
                     duration: const Duration(
@@ -116,7 +122,7 @@ class PostCard extends StatelessWidget {
                     ),
                     onEnd: () {
                       setState() {
-                        isLikeAnimating = true;
+                        isLikeAnimating = false;
                       }
                     },
                     smallLike: false,
@@ -127,26 +133,37 @@ class PostCard extends StatelessWidget {
           ),
           Row(
             children: [
-              IconButton(
-                // onPressed: LikeAnimation(
-                //   isAnimating: snap['likes'].contains(user.uid),
-                //   duration: const Duration(milliseconds: 400),
-                //   onEnd: () {},
-                //   smallLike: false,
-                //   child: const Icon(
-                //     Icons.favorite,
-                //     size: 100,
-                //     color: Colors.white,
-                //   ),
-                // ),
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
+              LikeAnimation(
+                isAnimating: snap['likes'].contains(user.uid),
+                duration: const Duration(milliseconds: 0),
+                onEnd: () {
+                  setState() {
+                    isLikeAnimating = false;
+                  }
+                },
+                smallLike: true,
+                child: IconButton(
+                  icon: snap['likes'].contains(user.uid)
+                      ? const Icon(Icons.favorite)
+                      : const Icon(Icons.favorite_border),
                   color: Colors.red,
+                  onPressed: () async {
+                    await FirestoreMethods().likePost(
+                      snap['postId'],
+                      user.uid,
+                      snap['likes'],
+                    );
+                  },
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentsScreen(
+                      snap: snap,
+                    ),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.comment_outlined,
                 ),
