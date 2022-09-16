@@ -76,7 +76,7 @@ class FirestoreMethods {
           'name': name,
           'profilePic': profilePic,
           'commentId': commentId,
-          'datePublisher': DateTime.now(),
+          'datePublished': DateTime.now(),
         });
       } else {
         print('Text is empty');

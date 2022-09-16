@@ -48,8 +48,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
             );
           }
           return ListView.builder(
-              itemCount: (snapshot.data! as dynamic).docs.length,
-              itemBuilder: (context, index) => CommentCard());
+            itemCount: (snapshot.data! as dynamic).docs.length,
+            itemBuilder: (context, index) => CommentCard(
+              snap: (snapshot.data! as dynamic).docs[index].data(),
+            ),
+          );
         },
       ),
       bottomNavigationBar: SafeArea(
@@ -85,6 +88,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     user.username,
                     user.photoUrl,
                   );
+                  setState(() {
+                    _commentController.text = '';
+                  });
                 },
                 child: Container(
                   padding:
