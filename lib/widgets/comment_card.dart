@@ -53,7 +53,7 @@ class _CommentCardState extends State<CommentCard> {
                       top: 4,
                     ),
                     child: Text(
-                      DateFormat.yMMMd().format(widget.snap['datePublished']),
+                      DateFormat.yMMMd().format(widget.snap['datePublished'].toDate()),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
