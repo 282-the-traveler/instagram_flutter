@@ -7,6 +7,7 @@ import 'package:instagram_flutter/responsive/web_screen_layout.dart';
 import 'package:instagram_flutter/screens/home_screen.dart';
 import 'package:instagram_flutter/screens/signup_screen.dart';
 import 'package:instagram_flutter/utils/colors.dart';
+import 'package:instagram_flutter/utils/dimensions.dart';
 import 'package:instagram_flutter/utils/utils.dart';
 import 'package:instagram_flutter/widgets/text_field_input.dart';
 
@@ -38,13 +39,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     if (res == "success") {
       Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const ResponsiveLayout(
-          webScreenLayout: WebScreenLayout(),
-          mobileScreenLayout: MobileScreenLayout(),
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
         ),
-      ),
-    );
+      );
     } else {
       showSnackBar(res, context);
     }
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void navigateToSignup() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => SignupScreen(),
+      builder: (context) => const SignupScreen(),
     ));
   }
 
@@ -64,7 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 32),
+          padding: MediaQuery.of(context).size.width > webScreenSize
+              ? EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 3)
+              : const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
           child: Column(
             children: [
@@ -129,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Text("Don't have an account?"),
+                    child: const Text("Don't have an account?"),
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                     ),
@@ -137,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     onTap: navigateToSignup,
                     child: Container(
-                      child: Text(
+                      child: const Text(
                         "SIGN UP.",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
