@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_flutter/resources/auth_methods.dart';
 import 'package:instagram_flutter/responsive/mobile_screen_layout.dart';
 import 'package:instagram_flutter/responsive/responsive_layout_screen.dart';
@@ -58,6 +60,24 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const SignupScreen(),
     ));
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   @override
@@ -121,6 +141,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             color: blueColor),
                       ),
+              ),
+              Container(
+                width: double.infinity,
+                color: Colors.white,
+                margin: EdgeInsets.only(
+                  top: 24,
+                ),
+                child: TextButton.icon(
+                  icon: Image.asset('assets/google.png'),
+                  onPressed: () {
+                    signInWithGoogle();
+                  },
+                  label: const Text(
+                    'Sign in with Google',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 12,
